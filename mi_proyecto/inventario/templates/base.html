@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}Inventario{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; background: #f4f6f8; color: #202733; }
+        nav { background: #1f3a5f; padding: 1rem 2rem; }
+        nav a { color: white; margin-right: 1.2rem; text-decoration: none; font-weight: bold; }
+        main { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
+        .card, table { background: white; border-radius: 8px; box-shadow: 0 1px 4px #ccd2d8; }
+        .card { padding: 1.2rem; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; }
+        .cards strong { display: block; font-size: 2rem; margin-top: .5rem; }
+        table { width: 100%; border-collapse: collapse; overflow: hidden; }
+        th, td { padding: .8rem; border-bottom: 1px solid #e4e7eb; text-align: left; }
+        th { background: #eaf0f6; }
+        .actions { margin: 1rem 0; display: flex; gap: .7rem; align-items: center; }
+        .btn { display: inline-block; padding: .55rem .9rem; border: 0; border-radius: 5px; background: #2672b8; color: white; text-decoration: none; cursor: pointer; }
+        .danger { background: #bd3d3d; } .muted { color: #697586; }
+        input, select, textarea { width: 100%; box-sizing: border-box; padding: .6rem; margin: .3rem 0 1rem; border: 1px solid #bcc6d1; border-radius: 4px; }
+        label { font-weight: bold; } .errorlist { color: #bd3d3d; padding-left: 1.2rem; }
+        .message { padding: .8rem; margin-bottom: 1rem; border-radius: 5px; background: #d9f2df; }
+    </style>
+</head>
+<body>
+<nav>
+    <a href="{% url 'inventario:dashboard' %}">Inventario</a>
+    <a href="{% url 'inventario:producto_list' %}">Productos</a>
+    <a href="{% url 'inventario:cliente_list' %}">Clientes</a>
+    <a href="{% url 'inventario:venta_list' %}">Ventas</a>
+</nav>
+<main>
+    {% for message in messages %}<div class="message">{{ message }}</div>{% endfor %}
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

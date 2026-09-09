@@ -4,9 +4,9 @@ from django.db import models
 
 class Producto(models.Model):
     nombre = models.CharField(max_length=64)
-    codigo = models.CharField(max_length=20, default='')
+    codigo = models.CharField(max_length=20, unique=True)
     precio = models.PositiveIntegerField(default=0)
-    descripcion = models.CharField(max_length=128, blank=True, null=True)
+    descripcion = models.TextField(blank=True)
     stock = models.PositiveIntegerField(default=0)
 
     class Meta:
@@ -38,3 +38,8 @@ class Venta(models.Model):
 
     def __str__(self):
         return f'Venta #{self.pk} - {self.producto.nombre}'
+
+    def save(self, *args, **kwargs):
+        if self.producto_id and not self.nombre_cliente:
+            self.nombre_cliente = self.rut_cliente
+        super().save(*args, **kwargs)
