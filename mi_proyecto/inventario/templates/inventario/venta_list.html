@@ -1,8 +1,0 @@
-{% extends "base.html" %}
-{% block title %}Ventas{% endblock %}
-{% block content %}
-<h1>Ventas</h1><div class="actions"><a class="btn" href="{% url 'inventario:venta_create' %}">Registrar venta</a></div>
-<table><tr><th>Fecha</th><th>Producto</th><th>Cliente</th><th>Cantidad</th><th>Total</th></tr>
-{% for venta in ventas %}<tr><td>{{ venta.fecha|date:"d/m/Y H:i" }}</td><td>{{ venta.producto.nombre }}</td><td>{{ venta.nombre_cliente }} ({{ venta.rut_cliente }})</td><td>{{ venta.cantidad }}</td><td>${{ venta.total }}{% if venta.cliente_habitual %} <small>(10% desc.)</small>{% endif %}</td></tr>
-{% empty %}<tr><td colspan="5">No hay ventas.</td></tr>{% endfor %}</table>
-{% endblock %}

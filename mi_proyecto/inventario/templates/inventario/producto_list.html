@@ -1,9 +1,0 @@
-{% extends "base.html" %}
-{% block title %}Productos{% endblock %}
-{% block content %}
-<h1>Productos</h1>
-<div class="actions"><a class="btn" href="{% url 'inventario:producto_create' %}">Nuevo producto</a><form method="get"><input name="q" value="{{ query }}" placeholder="Buscar por nombre o código"></form></div>
-<table><tr><th>Código</th><th>Nombre</th><th>Precio</th><th>Stock</th><th>Acciones</th></tr>
-{% for producto in productos %}<tr><td>{{ producto.codigo }}</td><td>{{ producto.nombre }}</td><td>${{ producto.precio }}</td><td>{{ producto.stock }}</td><td><a href="{% url 'inventario:producto_update' producto.pk %}">Editar</a> | <a href="{% url 'inventario:producto_delete' producto.pk %}">Eliminar</a></td></tr>
-{% empty %}<tr><td colspan="5">No hay productos.</td></tr>{% endfor %}</table>
-{% endblock %}
