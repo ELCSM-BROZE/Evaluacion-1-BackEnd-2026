@@ -2,3 +2,5 @@ django
 psycopg2-binary
 python-dotenv
 whitenoise
+
+"pip install -r requirements.txt"
