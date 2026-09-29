@@ -57,7 +57,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.midleware.WitheNoiseMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -89,16 +89,24 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': db_database,
-        'USER': db_user,
-        'PASSWORD': db_password,
-        'HOST': db_host,
-        'PORT': db_port
+if all([db_host, db_port, db_database, db_user, db_password]):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': db_database,
+            'USER': db_user,
+            'PASSWORD': db_password,
+            'HOST': db_host,
+            'PORT': db_port,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
 # Password validation
@@ -142,8 +150,4 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 # Email
 # https://docs.djangoproject.com/en/6.1/topics/email/#topic-email-configuration
 
-MAILERS = {
-    'default': {
-        'BACKEND': 'django.core.mail.backends.console.EmailBackend',
-    },
-}
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
